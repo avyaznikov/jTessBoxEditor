@@ -158,15 +158,21 @@ public class GuiWithEdit extends GuiWithMRU {
             return;
         }
 
+        int lastIndex = -1;
         for (TessBox box : selected) {
             int index = this.boxes.toList().indexOf(box);
             this.boxes.remove(box);
             tableModel.removeRow(index);
+            lastIndex = index;
         }
-
         resetReadout();
         this.jLabelImage.repaint();
         updateSave(true);
+        if (lastIndex != -1) {
+        	jTable.setRowSelectionInterval(lastIndex, lastIndex);
+        	jButtonPrev.doClick();
+        }
+        
     }
 
     /**

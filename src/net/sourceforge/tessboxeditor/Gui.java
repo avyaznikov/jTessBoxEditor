@@ -639,8 +639,11 @@ public class Gui extends javax.swing.JFrame {
             }
         });
         jTextFieldCharacter.addKeyListener(new java.awt.event.KeyAdapter() {
+        	public void keyPressed(java.awt.event.KeyEvent evt) {
+        		jTextFieldCharacterKeyReleased(evt);
+        	}
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldCharacterKeyReleased(evt);
+                //jTextFieldCharacterKeyReleased(evt);
             }
         });
         jPanelSpinner.add(jTextFieldCharacter);
@@ -2168,11 +2171,11 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenu jMenuHelp;
     private javax.swing.JMenuItem jMenuItemAbout;
-    private javax.swing.JMenuItem jMenuItemDelete;
+    javax.swing.JMenuItem jMenuItemDelete;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFont;
     private javax.swing.JMenuItem jMenuItemHelp;
-    private javax.swing.JMenuItem jMenuItemInsert;
+    javax.swing.JMenuItem jMenuItemInsert;
     private javax.swing.JMenuItem jMenuItemMerge;
     private javax.swing.JMenuItem jMenuItemMergeTiff;
     private javax.swing.JMenuItem jMenuItemOpen;

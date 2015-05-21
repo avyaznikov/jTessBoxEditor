@@ -50,7 +50,7 @@ public class GuiKeyEventDispatcher implements KeyEventDispatcher {
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent e) {
 
-		if (e.getID() != KeyEvent.KEY_TYPED) {
+		if (e.getID() != KeyEvent.KEY_TYPED && e.getID() != KeyEvent.KEY_PRESSED) {
 			return false;
 		}
 
@@ -99,9 +99,11 @@ public class GuiKeyEventDispatcher implements KeyEventDispatcher {
 			gui.jButtonPrev.doClick();
 		} else if (eq(c, '.')) {
 			gui.jButtonNext.doClick();
-		} else if (eq(c, 'x')) {
+		} else if (eq(c, 'x') || c == '\n') {
 			gui.jTextFieldCharacter.requestFocus();
 			gui.jTextFieldCharacter.selectAll();
+		} if (KeyEvent.VK_INSERT == e.getKeyCode()) {
+			gui.jMenuItemInsert.doClick();
 		} else {
 			return false;
 		}
