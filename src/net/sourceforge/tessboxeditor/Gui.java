@@ -1293,97 +1293,7 @@ public class Gui extends javax.swing.JFrame {
         setJMenuBar(jMenuBar);
 
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(new KeyEventDispatcher() {
-
-            private void inc(JSpinner s) {
-                if (s == jSpinnerX || s == jSpinnerY) {
-                    if (!invertControls) {
-                        s.setValue(Math.max(0, ((Integer) s.getValue()) - movementMultiplier));
-                    } else {
-                        s.setValue(((Integer) s.getValue()) + movementMultiplier);
-                    }
-                } else {
-                    s.setValue(((Integer) s.getValue()) + movementMultiplier);
-                }
-            }
-
-            private void inc(JSpinner s, int max) {
-                if ((s == jSpinnerX || s == jSpinnerY) && !invertControls) {
-                    s.setValue(Math.max(0, ((Integer) s.getValue()) - movementMultiplier));
-                } else {
-                    s.setValue(((Integer) s.getValue()) + movementMultiplier);
-                }
-            }
-
-            private void dec(JSpinner s) {
-                if ((s == jSpinnerX || s == jSpinnerY) && !invertControls) {
-                    s.setValue(((Integer) s.getValue()) + movementMultiplier);
-                } else {
-                    s.setValue(Math.max(0, ((Integer) s.getValue()) - movementMultiplier));
-                }
-            }
-
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent e) {
-
-                if (e.getID() != KeyEvent.KEY_TYPED) {
-                    return false;
-                }
-
-                Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-
-                if ( (focusOwner instanceof JSpinner)
-                    || (focusOwner instanceof JTextField)) {
-                    return false;
-                }
-
-                if (jLabelCharacter.hasFocus()) {
-                    return false;
-                }
-
-                if (!jPanelBoxView.isShowing()) {
-                    return false;
-                }
-
-                if (e.isShiftDown()) {
-                    movementMultiplier = 10;
-                }
-                else {
-                    movementMultiplier = 1;
-
-                }
-
-                char c = Character.toLowerCase(e.getKeyChar());
-
-                if (c == 'w') {
-                    inc(jSpinnerY);
-                } else if (c == 's') {
-                    dec(jSpinnerY);
-                } else if (c == 'd') {
-                    dec(jSpinnerX);
-                } else if (c == 'a') {
-                    inc(jSpinnerX);
-                } else if (c == 'q') {
-                    dec(jSpinnerW);
-                } else if (c == 'e') {
-                    inc(jSpinnerW);
-                } else if (c == 'r') {
-                    dec(jSpinnerH);
-                } else if (c == 'f') {
-                    inc(jSpinnerH);
-                } else if (c == ',') {
-                    jButtonPrev.doClick();
-                } else if (c == '.') {
-                    jButtonNext.doClick();
-                } else if (c == 'x') {
-                    jTextFieldCharacter.requestFocus();
-                } else {
-                    return false;
-                }
-
-                return true;
-            }
-        });
+        manager.addKeyEventDispatcher(new GuiKeyEventDispatcher(this));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -2143,6 +2053,10 @@ public class Gui extends javax.swing.JFrame {
     private void jTextFieldCharacterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCharacterKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE || evt.getKeyCode() == KeyEvent.VK_ENTER) {
             jLabelSubimage.requestFocus();
+            // go to next symbol
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            	jButtonNext.doClick();
+            }
         }
     }//GEN-LAST:event_jTextFieldCharacterKeyReleased
 
@@ -2211,10 +2125,10 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JButton jButtonInput;
     private javax.swing.JButton jButtonInsert;
     private javax.swing.JButton jButtonMerge;
-    private javax.swing.JButton jButtonNext;
+    javax.swing.JButton jButtonNext;
     private javax.swing.JButton jButtonNextPage;
     private javax.swing.JButton jButtonOpen;
-    private javax.swing.JButton jButtonPrev;
+    javax.swing.JButton jButtonPrev;
     private javax.swing.JButton jButtonPrevPage;
     private javax.swing.JButton jButtonReload;
     private javax.swing.JButton jButtonSave;
@@ -2231,7 +2145,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabelCharacter;
+    javax.swing.JLabel jLabelCharacter;
     private javax.swing.JLabel jLabelCodepoint;
     private javax.swing.JLabel jLabelH;
     private javax.swing.JLabel jLabelH1;
@@ -2272,7 +2186,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuTools;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanelBoxView;
+    javax.swing.JPanel jPanelBoxView;
     private javax.swing.JPanel jPanelButtons;
     private javax.swing.JPanel jPanelChar;
     private javax.swing.JPanel jPanelCommand;
